@@ -1,8 +1,3 @@
-####################################################
-# ssh-keygen -t rsa -f ./key/[ファイル名] -N ''
-# ssh -i ./.key/tf_key ec2-user@[取得したパブリックIP]
-####################################################
-
 # Register public key in AWS
 resource "aws_key_pair" "tf_key" {
   key_name = "tf_key"
