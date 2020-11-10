@@ -8,6 +8,7 @@
 ## 1. EC2にSSHする際に必要な鍵を生成
 ```sh:
 $ cd build
+$ mkdir .key
 $ ssh-keygen -t rsa -f ./key/tf_key -N ''
 ```
 
