@@ -7,10 +7,13 @@ terraform {
 provider "aws" {
   version = "~> 3.0"
   region = "ap-northeast-1"
-  profile = "admin-yuya"
+  profile = "${profile_name}"
 }
 
 # 各種変数
+variable "profile_name" {
+  default = "admin-yuya"
+}
 variable "public_key" {
   default = "~/.ssh/tf_aws_key.pub"
 }
