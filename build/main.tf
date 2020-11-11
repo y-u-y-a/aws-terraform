@@ -25,7 +25,7 @@ variable "db_username" {
   default = "root"
 }
 variable "db_password" {
-  default = "root"
+  default = "rootroot" # 8文字以上
 }
 ## scripts
 variable "script_path" {

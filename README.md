@@ -20,6 +20,5 @@ $ terraform apply
 # EC2
 $ ssh -i ~/.ssh/tf_aws_key ec2-user@[表示されたIPアドレス]
 # RDS
-$ sudo yum -y install mysql
 $ mysql -h [エンドポイント] -u [ユーザー名] -p
 ```

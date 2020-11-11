@@ -2,7 +2,8 @@
 
 sudo yum update -y
 # Install Library
-sudo yum install -y git
+sudo yum install -y git mysql httpd
+sudo systemctl start httpd.service
 
 # # Install php
 # # sudo yum install -y php
