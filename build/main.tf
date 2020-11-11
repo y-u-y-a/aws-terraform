@@ -17,3 +17,17 @@ variable "profile_name" {
 variable "public_key" {
   default = "~/.ssh/tf_aws_key.pub"
 }
+variable "private_key" {
+  default = "~/.ssh/tf_aws_key"
+}
+## RDS関係
+variable "db_username" {
+  default = "root"
+}
+variable "db_password" {
+  default = "root"
+}
+## scripts
+variable "script_path" {
+  default = "./install.sh"
+}

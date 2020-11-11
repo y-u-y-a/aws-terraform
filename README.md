@@ -7,8 +7,6 @@
 
 ## 1. SSHに必要な鍵を生成
 ```sh:
-$ cd build
-$ mkdir .key
 $ ssh-keygen -t rsa -f ~/.ssh/tf_aws_key -N ''
 ```
 
@@ -17,7 +15,11 @@ $ ssh-keygen -t rsa -f ~/.ssh/tf_aws_key -N ''
 $ terraform apply
 ```
 
-## 3. SSHで接続確認
+## 3. 接続確認
 ```sh:
+# EC2
 $ ssh -i ~/.ssh/tf_aws_key ec2-user@[表示されたIPアドレス]
+# RDS
+$ sudo yum -y install mysql
+$ mysql -h [エンドポイント] -u [ユーザー名] -p
 ```

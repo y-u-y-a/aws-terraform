@@ -5,8 +5,9 @@ resource "aws_security_group" "ec2" {
   vpc_id = aws_vpc.main.id
 }
 # Rules
+## インバウンド
 resource "aws_security_group_rule" "allow_http" {
-  type = "ingress" # inbound
+  type = "ingress"
   protocol = "tcp"
   from_port = 80
   to_port = 80
@@ -14,10 +15,19 @@ resource "aws_security_group_rule" "allow_http" {
   security_group_id = aws_security_group.ec2.id
 }
 resource "aws_security_group_rule" "allow_ssh" {
-  type = "ingress" # inbound
+  type = "ingress"
   protocol = "tcp"
   from_port = 22
   to_port = 22
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ec2.id
+}
+## アウトバウンド
+resource "aws_security_group_rule" "allow_all" {
+  type = "egress"
+  protocol = "-1"
+  from_port = 0
+  to_port = 0
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ec2.id
 }
@@ -29,8 +39,10 @@ resource "aws_security_group" "rds" {
   description = "for rds"
   vpc_id = aws_vpc.main.id
 }
+# Rules
+## インバウンド
 resource "aws_security_group_rule" "allow_ec2" {
-  type = "ingress" # inbound
+  type = "ingress"
   protocol = "tcp"
   from_port = 3306
   to_port = 3306
