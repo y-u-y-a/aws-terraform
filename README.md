@@ -12,9 +12,8 @@ $ mkdir .key
 $ ssh-keygen -t rsa -f ~/.ssh/tf_aws_key -N ''
 ```
 
-## 2. Terraform確認・実行
+## 2. Terraform実行
 ```sh:
-$ terraform plan
 $ terraform apply
 ```
 

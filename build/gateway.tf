@@ -1,7 +1,7 @@
 # Internet Gateway & Attach VPC
-resource "aws_internet_gateway" "tf_igw" {
-  vpc_id = aws_vpc.tf_vpc.id
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
   tags = {
-    Name = "tf_igw"
+    Name = "main"
   }
 }

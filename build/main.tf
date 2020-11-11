@@ -7,7 +7,7 @@ terraform {
 provider "aws" {
   version = "~> 3.0"
   region = "ap-northeast-1"
-  profile = "${profile_name}"
+  profile = var.profile_name
 }
 
 # 各種変数

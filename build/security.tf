@@ -1,22 +1,39 @@
-resource "aws_security_group" "sg_ec2" {
+# EC2(アクセス可能なポートを制限)
+resource "aws_security_group" "ec2" {
   name = "security_ec2"
   description = "for ec2"
-  vpc_id = aws_vpc.tf_vpc.id
+  vpc_id = aws_vpc.main.id
 }
 # Rules
 resource "aws_security_group_rule" "allow_http" {
   type = "ingress" # inbound
+  protocol = "tcp"
   from_port = 80
   to_port = 80
-  protocol = "tcp"
   cidr_blocks = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.sg_ec2.id
+  security_group_id = aws_security_group.ec2.id
 }
 resource "aws_security_group_rule" "allow_ssh" {
   type = "ingress" # inbound
+  protocol = "tcp"
   from_port = 22
   to_port = 22
-  protocol = "tcp"
   cidr_blocks = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.sg_ec2.id
+  security_group_id = aws_security_group.ec2.id
+}
+# --------------------------------------------------------
+
+# RDS(EC2からのアクセスのみ許可)
+resource "aws_security_group" "rds" {
+  name = "security_rds"
+  description = "for rds"
+  vpc_id = aws_vpc.main.id
+}
+resource "aws_security_group_rule" "allow_ec2" {
+  type = "ingress" # inbound
+  protocol = "tcp"
+  from_port = 3306
+  to_port = 3306
+  source_security_group_id = aws_security_group.ec2.id # ソース(EC2のセキュリティグループIDを指定)
+  security_group_id = aws_security_group.rds.id
 }
