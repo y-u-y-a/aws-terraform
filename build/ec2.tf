@@ -1,7 +1,7 @@
 # Register public key in AWS
 resource "aws_key_pair" "tf_key" {
   key_name = "tf_key"
-  public_key = file("./.key/tf_key.pub")
+  public_key = file("${var.public_key}")
 }
 
 # EC2 Instance

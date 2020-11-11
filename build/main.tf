@@ -9,3 +9,8 @@ provider "aws" {
   region = "ap-northeast-1"
   profile = "admin-yuya"
 }
+
+# 各種変数
+variable "public_key" {
+  default = "~/.ssh/tf_aws_key.pub"
+}
