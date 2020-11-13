@@ -6,7 +6,7 @@ resource "aws_subnet" "public_1a" {
   availability_zone = "ap-northeast-1a" # AZ
   cidr_block = "10.0.10.0/24" # CIDR
   tags = {
-    Name = "public_1a"
+    Group = "public"
   }
 }
 ### Private
@@ -15,7 +15,7 @@ resource "aws_subnet" "private_1a" {
   availability_zone = "ap-northeast-1a" # AZ
   cidr_block = "10.0.11.0/24" # CIDR
   tags = {
-    Name = "private_1a"
+    Group = "private"
   }
 }
 
@@ -26,7 +26,7 @@ resource "aws_subnet" "public_1c" {
   availability_zone = "ap-northeast-1c" # AZ
   cidr_block = "10.0.20.0/24" # CIDR
   tags = {
-    Name = "public_1c"
+    Group = "public"
   }
 }
 ### Private
@@ -35,6 +35,6 @@ resource "aws_subnet" "private_1c" {
   availability_zone = "ap-northeast-1c" # AZ
   cidr_block = "10.0.21.0/24" # CIDR
   tags = {
-    Name = "private_1c"
+    Group = "private"
   }
 }
