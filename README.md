@@ -1,4 +1,4 @@
-# TerraformでVPC, EC2, RDSを構築
+# TerraformでAWSを構築
 
 動くところまで記述
 
@@ -17,10 +17,12 @@ $ terraform apply
 
 ## 3. 接続確認
 ```sh:
+# ブラウザ
+表示された[表示されたALBのドメイン]にアクセス
 # EC2
 $ ssh -i ~/.ssh/tf_aws_key ec2-user@[表示されたIPアドレス]
 # RDS
-$ mysql -h [エンドポイント] -u [ユーザー名] -p
+$ mysql -h [表示されたエンドポイント] -u root -p
 ```
 
 ## イメージ図(途中)
