@@ -34,8 +34,9 @@ resource "aws_db_instance" "main" {
   auto_minor_version_upgrade = true # MySQLの自動バージョンアップグレード
   maintenance_window = "Sun:20:00-Sun:20:30"
   deletion_protection = false # 削除保護
-  skip_final_snapshot = false
-  final_snapshot_identifier = "deleted-snapshot"
+  skip_final_snapshot = true
+  # skip_final_snapshot = false
+  # final_snapshot_identifier = "deleted-snapshot"
   apply_immediately = true # DB変更情報をすぐに反映させるか
   db_subnet_group_name = aws_db_subnet_group.main.name # サブネットグループ
   parameter_group_name = aws_db_parameter_group.main.name # パラメータグループ
