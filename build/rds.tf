@@ -1,4 +1,4 @@
-# サブネットグループ(RDSを起動させるサブネットを制御(複数推奨))
+# サブネットグループ(RDSを起動させるサブネットを制御(複数推奨: マスタスレーブ構成))
 resource "aws_db_subnet_group" "main" {
   name = "main"
   subnet_ids = [
@@ -27,7 +27,7 @@ resource "aws_db_instance" "main" {
   instance_class = "db.t2.micro" # インスタンスタイプ
   storage_type = "gp2" # ストレージタイプ
   allocated_storage = 20 # ストレージ(GB)
-  multi_az = false # マルチAZ
+  multi_az = false # マルチAZ(マスタスレーブ構成, 複数のAZにRDSを自動作成)
   backup_retention_period = "30" # 自動バックアップの保持日数
   backup_window = "19:00-19:30" # バックアップを実行する時間(ja=UTC-9h)
   monitoring_interval = 0 # 拡張モニタリング無効
