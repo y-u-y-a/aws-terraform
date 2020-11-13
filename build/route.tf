@@ -14,6 +14,7 @@ resource "aws_route" "igw" {
 }
 # Assciation Subnet(サブネットの関連付け)
 resource "aws_route_table_association" "public" {
-  subnet_id = aws_subnet.public_1a.id
+  count = length(aws_subnet.public)
+  subnet_id = aws_subnet.public[count.index].id
   route_table_id = aws_route_table.public.id
 }

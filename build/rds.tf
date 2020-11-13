@@ -1,10 +1,7 @@
 # サブネットグループ(RDSを起動させるサブネットを制御(複数推奨: マスタスレーブ構成))
 resource "aws_db_subnet_group" "main" {
   name = "main"
-  subnet_ids = [
-    aws_subnet.private_1a.id,
-    aws_subnet.private_1c.id
-  ]
+  subnet_ids = aws_subnet.private.*.id # 全てのprivateに作成
 }
 # パラメータグループ(DB設定値を制御)
 resource "aws_db_parameter_group" "main" {

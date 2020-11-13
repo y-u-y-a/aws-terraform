@@ -3,19 +3,19 @@ resource "aws_key_pair" "main" {
   key_name = "main"
   public_key = file(var.public_key)
 }
-
-# EC2 Instance
+# EC2
 resource "aws_instance" "main" {
+  key_name = "main"
   ami = "ami-0ce107ae7af2e92b5"
   instance_type = "t2.micro"
-  key_name = "main"
-  subnet_id = aws_subnet.public_1a.id
-  associate_public_ip_address = true # 自動割り当てパブリックIP(TODO: サブネット設定を使用する方が良いのか？)
+  count = length(aws_subnet.public)
+  subnet_id = aws_subnet.public[count.index].id
+  associate_public_ip_address = true # 自動割り当てパブリックIP
   vpc_security_group_ids = [aws_security_group.ec2.id]
   tags = {
     Name = "main"
   }
-  # プロビジョニング
+  ## build environment
   provisioner "remote-exec" {
     connection {
       private_key = file(var.private_key)
@@ -23,20 +23,21 @@ resource "aws_instance" "main" {
       user = "ec2-user"
       host = self.public_ip
     }
-    script = var.script_path
+    script = var.sh_install
   }
 }
 
 # Associate Elastic IP
 resource "aws_eip" "eip" {
+  count = length(aws_instance.main)
+  instance = element(aws_instance.main, count.index).id
   vpc = true
-  instance = aws_instance.main.id
 }
 
 # Output
-output "elastic_ip" {
-  value = aws_eip.eip.public_ip
-}
 output "public_ip" {
-  value = aws_instance.main.public_ip
+  value = aws_instance.main.*.public_ip
+}
+output "elastic_ip" {
+  value = aws_eip.eip.*.public_ip
 }

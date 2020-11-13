@@ -28,6 +28,6 @@ variable "db_password" {
   default = "rootroot" # 8文字以上
 }
 ## scripts
-variable "install_script" {
-  default = "./install.sh"
+variable "sh_install" {
+  default = "./sh/install.sh"
 }

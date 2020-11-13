@@ -4,6 +4,9 @@ sudo yum update -y
 # Install Library
 sudo yum install -y git mysql httpd
 sudo systemctl start httpd.service
+sudo touch /var/www/html/index.html
+sudo chmod 755 /var/www/html/index.html
+sudo sh -c "echo `hostname` > /var/www/html/index.html"
 
 # # Install php
 # # sudo yum install -y php

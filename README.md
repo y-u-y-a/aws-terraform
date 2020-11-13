@@ -22,3 +22,6 @@ $ ssh -i ~/.ssh/tf_aws_key ec2-user@[表示されたIPアドレス]
 # RDS
 $ mysql -h [エンドポイント] -u [ユーザー名] -p
 ```
+
+## イメージ図(現在)
+![イメージ図](./docs/image.png)

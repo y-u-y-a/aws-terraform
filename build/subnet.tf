@@ -1,40 +1,53 @@
 # Subnet(Region: Tokyo)
-## AZ: 1a
-### Public
-resource "aws_subnet" "public_1a" {
+variable "public_subnets" {
+  default = [
+    {
+      "az" = "ap-northeast-1a"
+      "cidr" = "10.0.1.0/24"
+    },
+    {
+      "az" = "ap-northeast-1c"
+      "cidr" = "10.0.2.0/24"
+    },
+    {
+      "az" = "ap-northeast-1d"
+      "cidr" = "10.0.3.0/24"
+    },
+  ]
+}
+variable "private_subnets" {
+  default = [
+    {
+      "az" = "ap-northeast-1a"
+      "cidr" = "10.0.10.0/24"
+    },
+    {
+      "az" = "ap-northeast-1c"
+      "cidr" = "10.0.20.0/24"
+    },
+    {
+      "az" = "ap-northeast-1d"
+      "cidr" = "10.0.30.0/24"
+    },
+  ]
+}
+## public
+resource "aws_subnet" "public" {
+  count = length(var.public_subnets)
   vpc_id = aws_vpc.main.id # vpc
-  availability_zone = "ap-northeast-1a" # AZ
-  cidr_block = "10.0.10.0/24" # CIDR
+  availability_zone = var.public_subnets[count.index].az # AZ
+  cidr_block = var.public_subnets[count.index].cidr # CIDR
   tags = {
     Group = "public"
   }
 }
-### Private
-resource "aws_subnet" "private_1a" {
+## private
+resource "aws_subnet" "private" {
+  count = length(var.private_subnets)
   vpc_id = aws_vpc.main.id # vpc
-  availability_zone = "ap-northeast-1a" # AZ
-  cidr_block = "10.0.11.0/24" # CIDR
-  tags = {
-    Group = "private"
-  }
-}
-
-## AZ: 1c
-### Public
-resource "aws_subnet" "public_1c" {
-  vpc_id = aws_vpc.main.id # vpc
-  availability_zone = "ap-northeast-1c" # AZ
-  cidr_block = "10.0.20.0/24" # CIDR
+  availability_zone = var.private_subnets[count.index].az # AZ
+  cidr_block = var.private_subnets[count.index].cidr # CIDR
   tags = {
     Group = "public"
-  }
-}
-### Private
-resource "aws_subnet" "private_1c" {
-  vpc_id = aws_vpc.main.id # vpc
-  availability_zone = "ap-northeast-1c" # AZ
-  cidr_block = "10.0.21.0/24" # CIDR
-  tags = {
-    Group = "private"
   }
 }
