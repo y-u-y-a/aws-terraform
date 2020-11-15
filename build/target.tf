@@ -11,7 +11,7 @@ resource "aws_lb_target_group" "main" {
     path = "/"
   }
 }
-# 分散対象のインスタンスを登録
+# 分散対象のEC2インスタンスを登録
 resource "aws_lb_target_group_attachment" "main" {
   count = length(aws_instance.main)
   target_group_arn = aws_lb_target_group.main.arn # 登録するターゲットグループのARN
