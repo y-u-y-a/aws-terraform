@@ -1,4 +1,4 @@
-# ALB
+# ALB(Application Load Balancer)
 resource "aws_lb" "ec2" {
   name = "ec2"
   internal = false # インターネット向け
@@ -6,7 +6,7 @@ resource "aws_lb" "ec2" {
   subnets = aws_subnet.public.*.id # 分散させるサブネット
   security_groups = [aws_security_group.alb.id]
 }
-# リスナーの作成
+# リスナー
 resource "aws_lb_listener" "main" {
   port = 80
   protocol = "HTTP"
@@ -28,6 +28,26 @@ resource "aws_lb_listener_rule" "main" {
       values = ["/*"]
     }
   }
+}
+# ターゲットグループ
+resource "aws_lb_target_group" "main" {
+  name = "main"
+  vpc_id = aws_vpc.main.id
+  port = 80
+  protocol = "HTTP"
+  target_type = "instance"
+  health_check {
+    port = 80
+    protocol = "HTTP"
+    path = "/"
+  }
+}
+# ターゲットグループにEC2を登録
+resource "aws_lb_target_group_attachment" "main" {
+  count = length(aws_instance.main)
+  target_group_arn = aws_lb_target_group.main.arn # 登録するターゲットグループのARN
+  target_id = aws_instance.main[count.index].id # インスタンスのID
+  port = 80
 }
 ## ALBのDNS
 output "alb_dns_name" {

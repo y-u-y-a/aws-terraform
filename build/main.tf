@@ -10,6 +10,12 @@ provider "aws" {
   profile = var.profile_name
 }
 
+# Register public key in AWS
+resource "aws_key_pair" "main" {
+  key_name = "main"
+  public_key = file(var.public_key)
+}
+
 # 各種変数
 variable "profile_name" {
   default = "admin-yuya"

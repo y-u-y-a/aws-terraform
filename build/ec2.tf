@@ -1,8 +1,3 @@
-# Register public key in AWS
-resource "aws_key_pair" "main" {
-  key_name = "main"
-  public_key = file(var.public_key)
-}
 # EC2
 resource "aws_instance" "main" {
   key_name = "main"
